@@ -1,16 +1,15 @@
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, BigInteger, String, DateTime
 from datetime import datetime
 from database import Base
-from datetime import datetime
 
 class Usuario(Base):
     __tablename__ = "usuario"
 
-    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    id = Column(BigInteger, primary_key=True, index=True, autoincrement=True)
     nome = Column(String(100), nullable=False)
-    email = Column(String(150), unique=True, index=True, nullable=False)
+    email = Column(String(100), unique=True, index=True, nullable=False)
     senha_hash = Column(String(255), nullable=False)
-    telefone     = Column(String(20), nullable=False)
+    telefone = Column(String(20), nullable=True)
     data_criacao = Column(DateTime, default=datetime.utcnow)
     data_atualizacao = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     

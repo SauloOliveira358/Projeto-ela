@@ -1,26 +1,26 @@
-from sqlalchemy import Column, Integer, String, Text, DateTime
+from sqlalchemy import Column, BigInteger, String, Text, DateTime, Numeric
 from database import Base
 from datetime import datetime
 
 class Empresa(Base):
     __tablename__ = "empresa"
 
-    id = Column(Integer, primary_key=True, index=True)
-    razao_social = Column(String(100), nullable=False)
-    cnpj_cpf = Column(String(18), unique=True, nullable=False)
-    nome_fantasia = Column(String(100), nullable=False)
-    email = Column(String(150), unique=True, index=True, nullable=False)
+    id = Column(BigInteger, primary_key=True, index=True, autoincrement=True)
+    razao_social = Column(String(150), nullable=False)
+    cnpj_cpf = Column(String(20), unique=True, nullable=False)
+    nome_fantasia = Column(String(150), nullable=False)
+    email = Column(String(100), unique=True, index=True, nullable=False)
     senha_hash = Column(String(255), nullable=False)
     telefone = Column(String(20))
     descricao_perfil = Column(Text)
-    endereco_rua = Column(String(150))
+    endereco_rua = Column(String(200))
     endereco_numero = Column(String(20))
     cidade = Column(String(100))
     estado = Column(String(2))
-    cep = Column(String(8))
-    foto_perfil_url  = Column(String(255))
-    latitude = Column(String(20))
-    longitude = Column(String(20))
+    cep = Column(String(10))
+    foto_perfil_url = Column(String(255))
+    latitude = Column(Numeric(9, 6))
+    longitude = Column(Numeric(9, 6))
 
     data_criacao = Column(DateTime, default=datetime.utcnow)
     data_atualizacao = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

@@ -1,31 +1,28 @@
 
 
-from sqlalchemy import Column, Integer, DateTime, ForeignKey,Date,Time,String
+from sqlalchemy import Column, BigInteger, DateTime, ForeignKey, Date, Time, String, Numeric, Enum
 from database import Base
-from sqlalchemy import Enum
 import enum
 from datetime import datetime
 
 class StatusAgendamento(str, enum.Enum):
-    PENDENTE = "pendente"
-    CONFIRMADO = "confirmado"
-    CANCELADO = "cancelado"
-    FINALIZADO = "finalizado"
+    PENDENTE = "Pendente"
+    CONFIRMADO = "Confirmado"
+    CANCELADO = "Cancelado"
+    FINALIZADO = "Finalizado"
 
 class Agendamento(Base):
     __tablename__ = "agendamento"
 
-   
-
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(BigInteger, primary_key=True, index=True, autoincrement=True)
     data_agendamento = Column(Date, nullable=False)
     hora_agendamento = Column(Time, nullable=False)
-    status = Column(Enum(StatusAgendamento), nullable=False)
-    valor_total = Column(Integer, nullable=False)
+    status = Column(String(20), default="Pendente", nullable=False)
+    valor_total = Column(Numeric(10, 2), nullable=False)
 
-    id_usuario = Column(Integer, ForeignKey("usuario.id"), nullable=False)
-    id_empresa = Column(Integer, ForeignKey("empresa.id"), nullable=False)
-    id_servico = Column(Integer, ForeignKey("servico.id"), nullable=False)
+    id_usuario = Column(BigInteger, ForeignKey("usuario.id"), nullable=False)
+    id_empresa = Column(BigInteger, ForeignKey("empresa.id"), nullable=False)
+    id_servico = Column(BigInteger, ForeignKey("servico.id"), nullable=False)
 
     data_criacao = Column(DateTime, default=datetime.utcnow)
    
