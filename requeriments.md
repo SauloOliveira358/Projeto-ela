@@ -1,1 +1,3 @@
 py -m pip install fastapi uvicorn sqlalchemy "passlib[bcrypt]" "python-jose[cryptography]" python-dotenv python-multipart
+
+psycopg2-binary
