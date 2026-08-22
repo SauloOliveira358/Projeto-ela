@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+SECRET_KEY = os.getenv("SECRET_KEY")  
 SQLALCHEMY_DATABASE_URL = os.environ.get("DATABASE_URL")
 
 # Cria o motor de conexão com o Supabase
