@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 
 
-class ServicosDto:
+class ServicosDto(BaseModel):
     nome : str
     descricao : str | None = None
     preco : float | None = None

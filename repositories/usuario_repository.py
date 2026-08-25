@@ -21,3 +21,5 @@ class UsuarioRepository:
         self.session.add(usuario)
         self.session.commit()
         return usuario
+
+    
