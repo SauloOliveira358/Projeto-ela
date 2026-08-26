@@ -7,6 +7,8 @@ load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY")  
 SQLALCHEMY_DATABASE_URL = os.environ.get("DATABASE_URL")
+ALGORITHM = os.getenv("ALGORITHM")
+ACESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACESS_TOKEN_EXPIRE_MINUTES"))
 
 # Cria o motor de conexão com o Supabase
 engine = create_engine(SQLALCHEMY_DATABASE_URL)

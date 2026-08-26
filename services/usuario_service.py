@@ -1,3 +1,4 @@
+from security import gerar_hash_senha
 import bcrypt
 from fastapi import HTTPException
 from repositories.usuario_repository import UsuarioRepository
@@ -29,10 +30,7 @@ class UsuarioService:
             raise HTTPException(status_code=400, detail="Já existe um usuario com este email!")
 
         # 2. Criptografia segura da senha (hashing)
-        senha_bytes = usuarioDto.senha.encode('utf-8')
-        salt = bcrypt.gensalt()
-        hash_bytes = bcrypt.hashpw(senha_bytes, salt)
-        senha_criptografada = hash_bytes.decode('utf-8')
+        senha_criptografada = gerar_hash_senha(usuarioDto.senha)
 
         # 3. Criação do objeto de banco de dados (Model)
         novo_usuario = Usuario(

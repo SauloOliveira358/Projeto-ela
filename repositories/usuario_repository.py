@@ -16,6 +16,8 @@ class UsuarioRepository:
         """Busca um usuário no banco através do e-mail."""
         return self.session.query(Usuario).filter(Usuario.email == email).first()
 
+
+
     def salvar(self, usuario: Usuario):
         """Salva e persiste um novo usuário no banco de dados."""
         self.session.add(usuario)
