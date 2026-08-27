@@ -26,3 +26,11 @@ class EmpresaDto(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class EmpresaLoginDto(BaseModel):
+    email : str
+    senha : str
+
+    class Config:
+        from_attributes = True
