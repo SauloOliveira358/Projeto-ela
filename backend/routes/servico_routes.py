@@ -15,7 +15,14 @@ servico_router = APIRouter(prefix="/servicos", tags=["servicos"])
 async def criar_servico(servicoDto: ServicosDto, session: Session = Depends(pegar_session), empresa : Empresa = Depends(verificar_token_empresa) ):
     servico_repo = ServicoRepository(session)
     servico_service = ServicoService(servico_repo)
-    return servico_service.criar_servico(servicoDto)
+    return servico_service.criar_servico(servicoDto,empresa.id)
+
+
+@servico_router.post("/cancelar/{id_pedido}")
+async def cancelar_servico(id_pedido : int, session: Session = Depends(pegar_session), empresa : Empresa = Depends(verificar_token_empresa)):
+    servico_repo = ServicoRepository(session)
+    servico_service = ServicoService(servico_repo)
+    return servico_service.cancelar_servico(id_pedido,empresa.id)
     
-    
+
     
