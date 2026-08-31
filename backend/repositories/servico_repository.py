@@ -14,6 +14,8 @@ class ServicoRepository:
     def salvar(self, servico: Servico):
         self.session.add(servico)
         self.session.commit()
+        self.session.refresh(servico)
         return servico
 
-    
+    def buscar_por_id(self, id_servico: int):
+        return self.session.query(Servico).filter(Servico.id == id_servico).first()

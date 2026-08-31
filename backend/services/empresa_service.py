@@ -47,4 +47,3 @@ class EmpresaService:
         return {"message":f"Empresa cadastrada com sucesso! {empresaDto.email}"}
 
 
-    

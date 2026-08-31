@@ -9,7 +9,7 @@ class ServicosDto(BaseModel):
     preco : float | None = None
     duracao_servico : int | None = None
     id_categoria : int
-    
+    status : str | None = None
     
     
     

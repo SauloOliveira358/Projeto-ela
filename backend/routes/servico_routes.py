@@ -18,11 +18,13 @@ async def criar_servico(servicoDto: ServicosDto, session: Session = Depends(pega
     return servico_service.criar_servico(servicoDto,empresa.id)
 
 
-@servico_router.post("/cancelar/{id_pedido}")
-async def cancelar_servico(id_pedido : int, session: Session = Depends(pegar_session), empresa : Empresa = Depends(verificar_token_empresa)):
+@servico_router.post("/cancelar/{id_servico}")
+async def cancelar_servico(id_servico : int, session: Session = Depends(pegar_session), empresa : Empresa = Depends(verificar_token_empresa)):
     servico_repo = ServicoRepository(session)
     servico_service = ServicoService(servico_repo)
-    return servico_service.cancelar_servico(id_pedido,empresa.id)
+    return servico_service.cancelar_servico(id_servico,empresa.id)
     
+    
+
 
     
