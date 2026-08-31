@@ -43,4 +43,9 @@ class ServicoService:
         
         }
 
+    def listar_servicos(self,id_empresa : int):
+        servicos = self.servico_repo.listar_por_id_empresa(id_empresa)
+        return {
+            "servicos" : servicos
+        }
         

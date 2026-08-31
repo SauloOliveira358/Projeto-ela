@@ -24,7 +24,11 @@ async def cancelar_servico(id_servico : int, session: Session = Depends(pegar_se
     servico_service = ServicoService(servico_repo)
     return servico_service.cancelar_servico(id_servico,empresa.id)
     
-    
+@servico_router.get("/meus-servicos")
+async def listar_servicos_empresa(session: Session = Depends(pegar_session), empresa : Empresa = Depends(verificar_token_empresa)):
+    servico_repo = ServicoRepository(session)
+    servico_service = ServicoService(servico_repo)
+    return servico_service.listar_servicos(empresa.id)
 
 
     

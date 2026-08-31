@@ -19,3 +19,8 @@ class ServicoRepository:
 
     def buscar_por_id(self, id_servico: int):
         return self.session.query(Servico).filter(Servico.id == id_servico).first()
+
+
+    def listar_por_id_empresa(self, id_empresa: int):
+        return self.session.query(Servico).filter(Servico.id_empresa == id_empresa, Servico.status != "EXCLUIDO").all()
+
