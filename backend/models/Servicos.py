@@ -2,6 +2,7 @@
 
 import enum
 from sqlalchemy import Column, BigInteger, String, Text, Boolean, DateTime, ForeignKey, Numeric, Integer, Enum
+from sqlalchemy.orm import relationship
 from database import Base
 from datetime import datetime
 
@@ -9,7 +10,6 @@ class StatusServico(str, enum.Enum):
     ATIVO = "ATIVO"
     INATIVO = "INATIVO"
     EXCLUIDO = "EXCLUIDO"
-
 
 
 class Servico(Base):
@@ -25,8 +25,10 @@ class Servico(Base):
     data_atualizacao = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     id_empresa = Column(BigInteger, ForeignKey("empresa.id"), nullable=False)
     id_categoria = Column(BigInteger, ForeignKey("categoria.id"), nullable=False)
+
+    categoria = relationship("Categoria", lazy="joined")
     
-    def __init__(self, nome, descricao, preco,duracao_servico, id_empresa, id_categoria,status = StatusServico.ATIVO):
+    def __init__(self, nome, descricao, preco, duracao_servico, id_empresa, id_categoria, status=StatusServico.ATIVO):
         self.nome = nome
         self.descricao = descricao
         self.preco = preco
@@ -34,3 +36,4 @@ class Servico(Base):
         self.id_empresa = id_empresa
         self.id_categoria = id_categoria
         self.status = status
+

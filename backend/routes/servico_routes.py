@@ -1,8 +1,9 @@
-from dependecies import verificar_token_empresa
+
+from dependecies import verificar_token_empresa , verificar_token_usuario
 from fastapi import APIRouter, Depends
 from dtos.ServicosDto import ServicosDto
 from sqlalchemy.orm import Session
-from models import Empresa
+from models import Empresa, Usuario
 from dependecies import pegar_session
 from repositories.servico_repository import ServicoRepository
 from services.servico_service import ServicoService
@@ -30,5 +31,10 @@ async def listar_servicos_empresa(session: Session = Depends(pegar_session), emp
     servico_service = ServicoService(servico_repo)
     return servico_service.listar_servicos(empresa.id)
 
-
+@servico_router.get("/servicos")
+async def listar_todos_os_servicos(session: Session = Depends(pegar_session), usuario: Usuario = Depends(verificar_token_usuario)):
+    servico_repo = ServicoRepository(session)
+    servico_service = ServicoService(servico_repo)
+    return servico_service.listar_todos_servicos()
     
+
