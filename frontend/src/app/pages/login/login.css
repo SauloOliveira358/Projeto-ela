@@ -1,0 +1,88 @@
+/* 1. O fundo da tela inteira */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f1f5f9;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* 2. O cartão branco flutuante */
+.login-card {
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+/* 3. Títulos e textos do cabeçalho */
+.login-card h2 {
+    margin: 0 0 0.5rem 0;
+    color: #0f172a;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.login-card p {
+    margin: 0 0 1.8rem 0;
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+/* 4. Grupo dos campos (label + input) */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input {
+    padding: 0.75rem 1rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Efeito bonito quando o usuário clica no input */
+.form-group input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* 5. O Botão de Entrar */
+button[type="submit"] {
+    width: 100%;
+    padding: 0.85rem;
+    background-color: #6366f1;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+/* Quando passa o mouse por cima do botão */
+button[type="submit"]:hover {
+    background-color: #4f46e5;
+}
+
+/* Efeito de clique no botão */
+button[type="submit"]:active {
+    transform: scale(0.99);
+}
