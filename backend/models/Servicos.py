@@ -1,8 +1,15 @@
 
 
-from sqlalchemy import Column, BigInteger, String, Text, Boolean, DateTime, ForeignKey, Numeric, Integer
+import enum
+from sqlalchemy import Column, BigInteger, String, Text, Boolean, DateTime, ForeignKey, Numeric, Integer, Enum
+from sqlalchemy.orm import relationship
 from database import Base
 from datetime import datetime
+
+class StatusServico(str, enum.Enum):
+    ATIVO = "ATIVO"
+    INATIVO = "INATIVO"
+    EXCLUIDO = "EXCLUIDO"
 
 
 class Servico(Base):
@@ -13,17 +20,20 @@ class Servico(Base):
     descricao = Column(Text, nullable=False)
     preco = Column(Numeric(10, 2), nullable=False)
     duracao_servico = Column(Integer, nullable=False)   
-    ativo = Column(Boolean, default=True)
+    status = Column(Enum(StatusServico), default=StatusServico.ATIVO)
     data_criacao = Column(DateTime, default=datetime.utcnow)
     data_atualizacao = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     id_empresa = Column(BigInteger, ForeignKey("empresa.id"), nullable=False)
     id_categoria = Column(BigInteger, ForeignKey("categoria.id"), nullable=False)
+
+    categoria = relationship("Categoria", lazy="joined")
     
-    def __init__(self, nome, descricao, preco,duracao_servico, id_empresa, id_categoria,ativo = True):
+    def __init__(self, nome, descricao, preco, duracao_servico, id_empresa, id_categoria, status=StatusServico.ATIVO):
         self.nome = nome
         self.descricao = descricao
         self.preco = preco
         self.duracao_servico = duracao_servico
         self.id_empresa = id_empresa
         self.id_categoria = id_categoria
-        self.ativo = ativo
+        self.status = status
+

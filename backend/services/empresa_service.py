@@ -1,28 +1,25 @@
 # Serviço de Empresa
 import bcrypt
-from fastapi import HTTPException
+from fastapi import HTTPException, UploadFile
 from repositories.empresa_repository import EmpresaRepository
 from dtos.EmpresaDto import EmpresaDto
 from models import Empresa
+from services.upload_service import salvar_imagem
 
 
 class EmpresaService:
-    def __init__(self, empresa_repo : EmpresaRepository):
+    def __init__(self, empresa_repo: EmpresaRepository):
         self.empresa_repo = empresa_repo
 
     def criar_empresa(self, empresaDto: EmpresaDto):
-
-
         empresa = self.empresa_repo.buscar_por_email(empresaDto.email)
         if empresa:
             raise HTTPException(status_code=400, detail="Já existe uma empresa cadastrada com este email!")
-        
         
         senha_bytes = empresaDto.senha_hash.encode('utf-8')
         salt = bcrypt.gensalt()
         hash_bytes = bcrypt.hashpw(senha_bytes, salt)
         senha_criptografada = hash_bytes.decode('utf-8')
-
 
         nova_empresa = Empresa(
             razao_social=empresaDto.razao_social,
@@ -44,7 +41,22 @@ class EmpresaService:
         )
 
         self.empresa_repo.salvar(nova_empresa)
-        return {"message":f"Empresa cadastrada com sucesso! {empresaDto.email}"}
+        return {"message": f"Empresa cadastrada com sucesso! {empresaDto.email}"}
+
+    def atualizar_foto_perfil(self, id_empresa: int, arquivo: UploadFile):
+        empresa = self.empresa_repo.buscar_por_id(id_empresa)
+        if not empresa:
+            raise HTTPException(status_code=404, detail="Empresa não encontrada!")
+
+        url_foto = salvar_imagem(arquivo, "empresas")
+        empresa.foto_perfil_url = url_foto
+        self.empresa_repo.salvar(empresa)
+
+        return {
+            "message": "Foto de perfil da empresa atualizada com sucesso!",
+            "id_empresa": empresa.id,
+            "foto_perfil_url": empresa.foto_perfil_url
+        }
 
 
-    
+
